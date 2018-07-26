@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Supportcompact Library</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="settings">SETTINGS</string>
+    <string name="cancel">Cancel</string>
+    <string name="allow">Allow</string>
+    <string name="dont_allow">Don\'t Allow</string>
+</resources>
