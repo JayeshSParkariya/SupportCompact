@@ -1,6 +1,8 @@
-package org.supportcompact.networking
+package org.supportcompactsample.apis
 
 import io.reactivex.Observable
+import org.supportcompactsample.apis.models.Todo
+import retrofit2.http.GET
 
 
 /**
@@ -9,13 +11,13 @@ import io.reactivex.Observable
  */
 interface WebserviceBuilder {
 
-    fun getData(): Observable<String>
+    @GET("todos")
+    fun getTodos(): Observable<List<Todo>>
 
     /**
      * ApiNames to differentiate APIs
      */
     enum class ApiNames {
-        getData
+        GetTodoList
     }
-
 }

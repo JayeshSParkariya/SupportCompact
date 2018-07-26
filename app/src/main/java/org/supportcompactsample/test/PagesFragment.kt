@@ -1,14 +1,19 @@
 package org.supportcompactsample.test
 
 
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableList
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
+import android.util.Log
 import kotlinx.android.synthetic.main.fragment_pages.*
 import org.supportcompact.CoreFragment
 import org.supportcompact.adapters.setUpRecyclerView
 import org.supportcompactsample.R
+import org.supportcompactsample.apis.models.Todo
 import org.supportcompactsample.databinding.FragmentPagesBinding
-import org.supportcompactsample.databinding.PagerItemBinding
+import org.supportcompactsample.databinding.RowTodosListItemBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,14 +42,32 @@ class PagesFragment : CoreFragment<PageVM, FragmentPagesBinding>() {
     }
 
     override fun createReference() {
-        arguments?.let {
-            getViewModel().title.set(it.getString(ARG_PARAM1))
-        }
-        val data = arrayListOf("One", "Two", "Three", "Four", "Five", "Six")
-        mRecyclerView.setUpRecyclerView(R.layout.pager_item, data) { item: String, binder: PagerItemBinding, position: Int ->
-            binder.vm = item
+        mRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        mRecyclerView.setUpRecyclerView(R.layout.row_todos_list_item, getViewModel().todoList) { item: Todo?, binder: RowTodosListItemBinding, position: Int ->
+            binder.todo = item
             binder.executePendingBindings()
         }
+        getViewModel().todoList.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableArrayList<Todo>>() {
+            override fun onChanged(sender: ObservableArrayList<Todo>?) {
+            }
+
+            override fun onItemRangeRemoved(sender: ObservableArrayList<Todo>?, positionStart: Int, itemCount: Int) {
+                Log.e("remove itemAt", positionStart.toString())
+                mRecyclerView.adapter.notifyDataSetChanged()
+            }
+
+            override fun onItemRangeMoved(sender: ObservableArrayList<Todo>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
+            }
+
+            override fun onItemRangeInserted(sender: ObservableArrayList<Todo>?, positionStart: Int, itemCount: Int) {
+                Log.e("insert itemAt", positionStart.toString())
+                mRecyclerView.adapter.notifyDataSetChanged()
+            }
+
+            override fun onItemRangeChanged(sender: ObservableArrayList<Todo>?, positionStart: Int, itemCount: Int) {
+
+            }
+        })
     }
 
     override fun toString(): String {

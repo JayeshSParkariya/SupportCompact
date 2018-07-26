@@ -14,6 +14,7 @@ abstract class CoreFragment<VM : FragmentViewModel, DB : ViewDataBinding> : Frag
 
     private lateinit var vm: VM
     private lateinit var binding: DB
+    private var reference = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!::binding.isInitialized) {
@@ -26,7 +27,10 @@ abstract class CoreFragment<VM : FragmentViewModel, DB : ViewDataBinding> : Frag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        createReference()
+        if (!reference) {
+            createReference()
+            reference = true
+        }
     }
 
     @LayoutRes

@@ -25,7 +25,7 @@ object ApiClient {
     private lateinit var retrofitHeader: Retrofit
     private lateinit var okHttpClient: OkHttpClient
     private const val DEBUG = true
-    private const val BASE_URL = "http://172.10.24.107/device_tracking/backend/webservice/" /// Latest url
+    private const val BASE_URL = "https://jsonplaceholder.typicode.com/" /// Latest url
 
     /**
      * @return [Retrofit] object its single-tone

@@ -7,10 +7,12 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.WindowManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.supportcompact.events.ShowError
 import org.supportcompact.ktx.*
 
 abstract class CoreActivity<VM : ActivityViewModel, DB : ViewDataBinding> : AppCompatActivity() {
@@ -53,23 +55,23 @@ abstract class CoreActivity<VM : ActivityViewModel, DB : ViewDataBinding> : AppC
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun showDialog(show: Short) {
+    fun showDialog(show: String) {
         when (show) {
             SHOW_PROGRESS -> {
                 window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
+                getViewModel().progressBar.set(View.VISIBLE)
             }
             DISMISS_PROGRESS -> {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
+                getViewModel().progressBar.set(View.GONE)
             }
         }
         EventBus.getDefault().removeStickyEvent(show)
     }
 
     @Subscribe
-    fun showError(error: String) {
-        binding.root.snackBar(error)
+    fun showError(error: ShowError) {
+        binding.root.snackBar(error.error)
     }
 
     protected fun requestPermissionsIfRequired(permissions: ArrayList<String>, permissionCallBack: PermissionCallBack?) {
