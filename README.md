@@ -1,6 +1,6 @@
 # Support Compact Libraty 
 
-*Kotlin
+*Kotlin\n
 *DataBinding
 *MVVM code base
 *Retrofit and RxJava
