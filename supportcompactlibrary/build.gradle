@@ -42,7 +42,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
-    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
+    // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     implementation "com.android.support:support-v4:$support_version"
     kapt "com.android.databinding:compiler:3.1.3"

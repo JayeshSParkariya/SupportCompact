@@ -1,6 +1,6 @@
 package org.supportcompactsample.test
 
-import android.databinding.ObservableArrayList
+import android.arch.lifecycle.MutableLiveData
 import org.supportcompact.FragmentViewModel
 import org.supportcompact.ktx.dismissProgress
 import org.supportcompact.ktx.postError
@@ -13,7 +13,7 @@ import org.supportcompactsample.apis.models.Todo
 
 class PageVM : FragmentViewModel(), SingleCallback<WebserviceBuilder.ApiNames> {
 
-    val todoList = ObservableArrayList<Todo>()
+    val todoList = MutableLiveData<ArrayList<Todo>>()
 
     init {
         getTodoList()
@@ -33,7 +33,7 @@ class PageVM : FragmentViewModel(), SingleCallback<WebserviceBuilder.ApiNames> {
         when (apiNames) {
             WebserviceBuilder.ApiNames.GetTodoList -> {
                 if (o is List<Any?>) {
-                    todoList.addAll(o as Collection<Todo>)
+                    todoList.value = o as ArrayList<Todo>?
                 } else {
                     postError("Something went wrong. Please try again latter")
                 }
