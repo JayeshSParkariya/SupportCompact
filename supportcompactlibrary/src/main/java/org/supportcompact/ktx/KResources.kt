@@ -6,9 +6,9 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.support.annotation.*
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
+import androidx.annotation.*
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import android.util.DisplayMetrics
 
 fun Context.color(@ColorRes clr: Int): Int {

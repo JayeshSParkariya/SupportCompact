@@ -1,8 +1,8 @@
 package org.supportcompact.adapters
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import org.supportcompact.ktx.inflate
 
@@ -13,13 +13,13 @@ abstract class MultiViewRecyclerAdapter<T : WidgetsViewModel>(private val list: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<ViewDataBinding> {
-        return ViewHolder(DataBindingUtil.bind(parent.inflate(viewType)))
+        return ViewHolder(DataBindingUtil.bind(parent.inflate(viewType))!!)
     }
 
     override fun onBindViewHolder(holder: ViewHolder<ViewDataBinding>, position: Int) {
         val model = list[position]
-        holder.binding?.setVariable(getBindingVariable(), model)
-        holder.binding?.executePendingBindings()
+        holder.binding.setVariable(getBindingVariable(), model)
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount(): Int {
@@ -28,5 +28,5 @@ abstract class MultiViewRecyclerAdapter<T : WidgetsViewModel>(private val list: 
 
     abstract fun getBindingVariable(): Int
 
-    class ViewHolder<out V : ViewDataBinding>(val binding: V?) : RecyclerView.ViewHolder(binding?.root)
+    class ViewHolder<out V : ViewDataBinding>(val binding: V) : RecyclerView.ViewHolder(binding.root)
 }

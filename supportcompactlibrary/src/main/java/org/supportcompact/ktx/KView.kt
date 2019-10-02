@@ -4,10 +4,10 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
-import android.support.annotation.LayoutRes
-import android.support.annotation.RequiresApi
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
+import androidx.annotation.LayoutRes
+import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

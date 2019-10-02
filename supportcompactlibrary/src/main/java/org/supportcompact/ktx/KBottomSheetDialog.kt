@@ -1,8 +1,8 @@
 package org.supportcompact.ktx
 
 import android.content.Context
-import android.support.design.widget.BottomSheetDialog
-import android.support.v4.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.fragment.app.Fragment
 import android.view.View
 
 fun Fragment.bottomSheetDialog(init: BottomSheetDialogBuilder.() -> Unit): BottomSheetDialogBuilder? = activity?.bottomSheetDialog(init)

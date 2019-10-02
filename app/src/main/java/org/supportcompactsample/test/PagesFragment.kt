@@ -1,10 +1,10 @@
 package org.supportcompactsample.test
 
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_pages.*
 import org.supportcompact.CoreFragment
 import org.supportcompact.adapters.setUpRecyclerView

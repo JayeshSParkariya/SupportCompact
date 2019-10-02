@@ -1,7 +1,7 @@
 package org.supportcompact.ktx
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.widget.Toast
 
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {

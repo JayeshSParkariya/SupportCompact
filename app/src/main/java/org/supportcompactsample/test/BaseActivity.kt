@@ -1,6 +1,7 @@
 package org.supportcompactsample.test
 
-import com.android.databinding.library.baseAdapters.BR
+
+import androidx.databinding.library.baseAdapters.BR
 import kotlinx.android.synthetic.main.activity_base.*
 import org.supportcompact.ActivityViewModel
 import org.supportcompact.CoreActivity

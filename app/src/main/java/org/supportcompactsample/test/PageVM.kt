@@ -1,6 +1,6 @@
 package org.supportcompactsample.test
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import org.supportcompact.FragmentViewModel
 import org.supportcompact.ktx.dismissProgress
 import org.supportcompact.ktx.postError
