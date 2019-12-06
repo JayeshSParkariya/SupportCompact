@@ -24,7 +24,7 @@ object ApiClient {
     private lateinit var retrofit: Retrofit
     private lateinit var retrofitHeader: Retrofit
     private lateinit var okHttpClient: OkHttpClient
-    private const val DEBUG = true
+    const val BUILD_TYPE_DEBUG = true
     private const val BASE_URL = "https://jsonplaceholder.typicode.com/" /// Latest url
 
     /**
@@ -76,7 +76,7 @@ object ApiClient {
                     .writeTimeout(OKHTTP_TIMEOUT.toLong(), TimeUnit.SECONDS)
                     .readTimeout(OKHTTP_TIMEOUT.toLong(), TimeUnit.SECONDS)
 
-            if (DEBUG) {
+            if (BUILD_TYPE_DEBUG) {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 builder.addInterceptor(loggingInterceptor)
@@ -107,7 +107,7 @@ object ApiClient {
                 .writeTimeout(OKHTTP_TIMEOUT.toLong(), TimeUnit.SECONDS)
                 .readTimeout(OKHTTP_TIMEOUT.toLong(), TimeUnit.SECONDS)
 
-        if (DEBUG) {
+        if (BUILD_TYPE_DEBUG) {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(loggingInterceptor)
@@ -174,6 +174,44 @@ fun <T, A> subscribeToSingle(observable: Observable<T>, apiNames: A, singleCallb
 
                 override fun onError(e: Throwable) {
                     singleCallback?.onFailure(e, apiNames)
+                }
+            })
+}
+
+
+interface SingleCallback1<T> {
+    /**
+     * @param o        Whole response Object
+     * @param apiNames [A] to differentiate Apis
+     */
+    fun onSingleSuccess(o: T)
+
+    /**
+     * @param throwable returns [Throwable] for checking Exception
+     * @param apiNames  [A] to differentiate Apis
+     */
+    fun onFailure(throwable: Throwable)
+}
+
+fun <T> subscribeToSingle(observable: Observable<T>, singleCallback: SingleCallback1<T>?) {
+    Single.fromObservable(observable)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object : SingleObserver<T> {
+                override fun onSuccess(t: T) {
+                    try {
+                        singleCallback?.onSingleSuccess(t)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onError(e: Throwable) {
+                    singleCallback?.onFailure(e)
                 }
             })
 }

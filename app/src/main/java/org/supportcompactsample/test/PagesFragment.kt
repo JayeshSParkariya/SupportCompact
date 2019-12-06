@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_pages.*
 import org.supportcompact.CoreFragment
 import org.supportcompact.adapters.setUpRecyclerView
+import org.supportcompact.ktx.e
 import org.supportcompactsample.R
 import org.supportcompactsample.apis.models.Todo
 import org.supportcompactsample.databinding.FragmentPagesBinding
@@ -41,13 +42,33 @@ class PagesFragment : CoreFragment<PageVM, FragmentPagesBinding>() {
 
     override fun createReference() {
         getViewModel().todoList.observe(this, Observer<ArrayList<Todo>> {
-            it?.let {
-                mRecyclerView.setUpRecyclerView(R.layout.row_todos_list_item, it) { item: Todo?, binder: RowTodosListItemBinding, position: Int ->
-                    binder.todo = item
-                    binder.executePendingBindings()
+            e("Observe has been invoke")
+            if (mRecyclerView.adapter == null) {
+                it?.let {
+                    mRecyclerView.setUpRecyclerView(R.layout.row_todos_list_item, it) { item: Todo?, binder: RowTodosListItemBinding, position: Int ->
+
+                        binder.todo = item
+                        binder.executePendingBindings()
+
+                        binder.setOnClick {
+                            when (it.id) {
+                                R.id.tvTask -> {
+                                    val todo = Todo(1, 101, "New Data", false)
+                                    getViewModel().todoList.value?.add(0, todo)
+                                    mRecyclerView.adapter?.notifyDataSetChanged()
+                                }
+                                R.id.ivDelete -> {
+                                    getViewModel().todoList.value?.removeAt(position)
+                                    mRecyclerView.adapter?.notifyDataSetChanged()
+                                }
+                            }
+                        }
+                    }
+                    mRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
                 }
-                mRecyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+                return@Observer
             }
+            mRecyclerView.adapter?.notifyDataSetChanged()
         })
     }
 

@@ -12,6 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import org.supportcompact.ktx.inflate
 
+/**
+ * This is extension function setup the of ViewPager's PagerAdapter.
+ * @param layout layout to be bound to adapter.
+ * @param items data to be bound with layout.
+ * @param onBind Is Unit function to override the  instantiateItem of PagerAdapter.
+ * */
 fun <T, U : ViewDataBinding> ViewPager.setPageAdapter(@LayoutRes layout: Int, items: ArrayList<T>, onBind: (binder: U, item: T) -> Unit): PagerAdapter? {
     adapter = object : PagerAdapter() {
 
@@ -38,6 +44,11 @@ fun <T, U : ViewDataBinding> ViewPager.setPageAdapter(@LayoutRes layout: Int, it
     return adapter
 }
 
+/**
+ * This is extension function setup the of ViewPager's FragmentPagerAdapter.
+ * @param fm Is fragment manager.
+ * @param fragments is list of fragment to be show.
+ * */
 fun <T : Fragment> ViewPager.setFragmentPagerAdapter(fm: FragmentManager, fragments: ArrayList<T>): FragmentPagerAdapter? {
     adapter = object : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = fragments[position]

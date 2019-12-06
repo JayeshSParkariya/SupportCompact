@@ -14,9 +14,9 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        buildConfigField "String", "ApiKey", "\"S1DFq76S45#\$8G9h6u5DF7pk5T7Lpart\""
+        buildConfigField "String", "IV", "\"0123456789012345\""
     }
 
     buildTypes {
@@ -48,6 +48,8 @@ dependencies {
     //kapt 'androidx.databinding:databinding-compiler:1.0.0'
     implementation "com.google.android.material:material:1.0.0"
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+
     //Retrofit
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'com.squareup.retrofit2:converter-gson:2.3.0'

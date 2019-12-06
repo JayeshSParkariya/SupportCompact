@@ -7,4 +7,8 @@
     <string name="cancel">Cancel</string>
     <string name="allow">Allow</string>
     <string name="dont_allow">Don\'t Allow</string>
+    <string-array name="select_image_from">
+        <item>Gallery</item>
+        <item>Camera</item>
+    </string-array>
 </resources>
